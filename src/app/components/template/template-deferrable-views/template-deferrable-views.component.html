@@ -1,0 +1,30 @@
+<!--
+
+  on - especifica uma condição de acionador usando um acionador da lista.
+  (idle, timer, viewport, interaction, hover, immediate, prefetch)
+
+  when - especifica uma condição imperativa como uma expressão que retorna
+  um booleano. Quando esta expressão se torna verdadeira, o espaço reservado
+  é trocado pelo conteúdo carregado lentamente (o que pode ser uma operação
+  assíncrona se as dependências precisarem ser buscadas).
+
+  Nota: Vários on triggers são sempre condições OR. Da mesma forma, on misturado
+  com when também são condições OR.
+
+  after - especifica que o indicador de carregamento só deve ser exibido se
+  o carregamento demorar mais de 150 ms.
+
+  minimum - existe para evitar oscilações rápidas do conteúdo do espaço reservado
+-->
+
+<h2 #trigger>Deferrable Views</h2>
+
+@defer(on interaction) {
+  <app-new-component />
+} @placeholder {
+  <p>Mostrar antes de carregar algo.</p>
+} @loading {
+  <p>Loading...</p>
+} @error {
+  <p>Loading failed :(</p>
+}
