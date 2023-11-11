@@ -1,0 +1,17 @@
+<h2>Pipes</h2>
+<ul>
+  <li>date: {{ date() | date : "dd/MM/yyyy" }}</li>
+  <li>uppercase: {{ "dener troquatte" | uppercase }}</li>
+  <li>lowercase: {{ "DENER TROQUATTE" | lowercase }}</li>
+  <li>json: {{ json() | json }}</li>
+  <li>async: {{ loadingData$ | async }}</li>
+
+  <li>currency: {{ 2000.5 | currency : "BRL" }}</li>
+  <li>number: {{ 2000.5544 | number : "1.1-1" }}</li>
+  <li>percent: {{ 0.155 | percent : "1.0-4" }}</li>
+
+  <li>
+    customString:
+    {{ "DENER TROQUATTE" | customString : "lower" }}
+  </li>
+</ul>
