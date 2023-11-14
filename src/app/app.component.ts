@@ -7,6 +7,9 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
+// Env
+import { environment } from 'environments/environment';
+
 // Components
 import { NewComponent } from '@components/new-component/new-component.component';
 import { TemplateBindingComponent } from '@components/template/template-binding/template-binding.component';
@@ -97,4 +100,8 @@ import { LifeCycleComponent } from '@components/life-cycle/life-cycle.component'
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor() {
+    console.log(environment.env);
+  }
+}
