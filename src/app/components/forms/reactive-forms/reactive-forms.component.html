@@ -1,10 +1,25 @@
 <h2>Reactive forms</h2>
-<form [formGroup]="profileForm">
+<form [formGroup]="profileForm" (ngSubmit)="submit()">
   <label>
     Nome:
     <input type="text" formControlName="name" />
-    <p>value: {{ profileForm.value.name }}</p>
   </label>
+
+  <hr />
+  <h3>[formGroup] = profileForm</h3>
+  <p>value: {{ profileForm.value | json }}</p>
+  <p>valid: {{ profileForm.valid }}</p>
+  <p>dirty: {{ profileForm.dirty }}</p>
+  <p>touched: {{ profileForm.touched }}</p>
+  <hr />
+
+  <h3>[formControlName] = name</h3>
+  <p>value: {{ profileForm.get("name")?.value }}</p>
+  <p>valid: {{ profileForm.get("name")?.valid }}</p>
+  <p>errors: {{ profileForm.get("name")?.errors | json }}</p>
+  <p>dirty: {{ profileForm.get("name")?.dirty }}</p>
+  <p>touched: {{ profileForm.get("name")?.touched }}</p>
+  <hr />
 
   <div formGroupName="myStacks">
     <label>
@@ -41,4 +56,6 @@
     <hr />
     }
   </div>
+
+  <button [disabled]="!profileForm.valid">Submit</button>
 </form>

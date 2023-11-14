@@ -8,9 +8,9 @@ import { OutputComponent } from '../output/output.component';
   standalone: true,
   imports: [CommonModule, InputComponent, OutputComponent],
   templateUrl: './pai-ou-mae.component.html',
-  styleUrl: './pai-ou-mae.component.scss'
+  styleUrl: './pai-ou-mae.component.scss',
 })
 export class PaiOuMaeComponent {
-  public name = signal("Dener Troquatte");
-  public outputName = signal('Output: sem valor')
+  public name = signal('Dener Troquatte');
+  public outputName = signal('Output: sem valor');
 }

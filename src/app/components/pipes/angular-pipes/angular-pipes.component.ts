@@ -13,7 +13,7 @@ import {
 } from '@angular/common';
 
 import { Observable, delay, of } from 'rxjs';
-import { CustomStringPipe } from '../../../pipes/custom-string.pipe';
+import { CustomStringPipe } from '@pipes/custom-string.pipe';
 
 @Component({
   selector: 'app-angular-pipes',
