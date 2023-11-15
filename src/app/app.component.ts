@@ -24,6 +24,7 @@ import { TemplateDrivenFormsComponent } from '@components/forms/template-driven-
 import { ContentComponent } from '@components/content/content.component';
 import { HostElementsComponent } from '@components/host-elements/host-elements.component';
 import { LifeCycleComponent } from '@components/life-cycle/life-cycle.component';
+import { ConsumeServiceComponent } from '@components/consume-service/consume-service.component';
 
 @Component({
   selector: 'app-root',
@@ -44,6 +45,7 @@ import { LifeCycleComponent } from '@components/life-cycle/life-cycle.component'
     ContentComponent,
     HostElementsComponent,
     LifeCycleComponent,
+    ConsumeServiceComponent,
   ],
   template: `
     <!-- <router-outlet></router-outlet>  -->
@@ -97,11 +99,8 @@ import { LifeCycleComponent } from '@components/life-cycle/life-cycle.component'
     -->
 
     <h1>Curso de Angular</h1>
+    <app-consume-service />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  constructor() {
-    console.log(environment.env);
-  }
-}
+export class AppComponent {}
