@@ -1,0 +1,35 @@
+<h2>Services</h2>
+<h3>Get List</h3>
+@if(isLoading() && (getListTasks$ | async); as data){
+  <ul>
+  @for(item of data; track item){
+    <li>{{ item.id }} - {{ item.title }}</li>
+  }
+  </ul>
+}@else {
+  @if(getListTasksError() === null){
+    <p>Loading...</p>
+  }@else {
+    {{ getListTasksError() }}
+  }
+}
+
+
+<h3>Get Id</h3>
+@if(isLoading() && (getTask$ | async); as data){
+  {{ data.id }} - {{ data.title }}
+}@else {
+  @if(getTaskError() === null){
+    <p>Loading...</p>
+  }@else {
+    {{ getTaskError() }}
+  }
+}
+
+<h3>Create Task</h3>
+<input type="text" #title placeholder="add title">
+<button (click)="createTask(title.value)"> Create </button>
+
+@if(createTaskError()){
+  <p>{{ createTaskError() }}</p>
+}

@@ -9,6 +9,7 @@ import { RouterOutlet } from '@angular/router';
 
 // Components
 import { PaiOuMaeComponent } from '@components/comunicacao-entre-components/pai-ou-mae/pai-ou-mae.component';
+import { ConsumeServiceComponent } from '@components/consume-service/consume-service.component';
 import { ContentComponent } from '@components/content/content.component';
 import { ReactiveFormsComponent } from '@components/forms/reactive-forms/reactive-forms.component';
 import { TemplateDrivenFormsComponent } from '@components/forms/template-driven-forms/template-driven-forms.component';
@@ -41,6 +42,7 @@ import { TemplateVariablesComponent } from '@components/template/template-variab
     ContentComponent,
     HostElementsComponent,
     LifeCycleComponent,
+    ConsumeServiceComponent
   ],
   template: `
     <!-- <router-outlet></router-outlet>  -->
@@ -94,8 +96,10 @@ import { TemplateVariablesComponent } from '@components/template/template-variab
     -->
 
     <h1>Curso de Angular</h1>
+    <app-consume-service />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent  {
+
 }
