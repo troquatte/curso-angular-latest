@@ -1,30 +1,26 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  signal,
+  Component
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 // Env
-import { environment } from 'environments/environment';
 
 // Components
-import { NewComponent } from '@components/new-component/new-component.component';
-import { TemplateBindingComponent } from '@components/template/template-binding/template-binding.component';
-import { TemplateVariablesComponent } from '@components/template/template-variables/template-variables.component';
-import { TemplateControlFlowComponent } from '@components/template/template-control-flow/template-control-flow.component';
-import { TemplateDeferrableViewsComponent } from '@components/template/template-deferrable-views/template-deferrable-views.component';
-import { SignalsComponent } from '@components/signals/signals.component';
 import { PaiOuMaeComponent } from '@components/comunicacao-entre-components/pai-ou-mae/pai-ou-mae.component';
-import { AngularPipesComponent } from '@components/pipes/angular-pipes/angular-pipes.component';
+import { ContentComponent } from '@components/content/content.component';
 import { ReactiveFormsComponent } from '@components/forms/reactive-forms/reactive-forms.component';
 import { TemplateDrivenFormsComponent } from '@components/forms/template-driven-forms/template-driven-forms.component';
-import { ContentComponent } from '@components/content/content.component';
 import { HostElementsComponent } from '@components/host-elements/host-elements.component';
 import { LifeCycleComponent } from '@components/life-cycle/life-cycle.component';
-import { ConsumeServiceComponent } from '@components/consume-service/consume-service.component';
+import { NewComponent } from '@components/new-component/new-component.component';
+import { AngularPipesComponent } from '@components/pipes/angular-pipes/angular-pipes.component';
+import { SignalsComponent } from '@components/signals/signals.component';
+import { TemplateBindingComponent } from '@components/template/template-binding/template-binding.component';
+import { TemplateControlFlowComponent } from '@components/template/template-control-flow/template-control-flow.component';
+import { TemplateDeferrableViewsComponent } from '@components/template/template-deferrable-views/template-deferrable-views.component';
+import { TemplateVariablesComponent } from '@components/template/template-variables/template-variables.component';
 
 @Component({
   selector: 'app-root',
@@ -45,7 +41,6 @@ import { ConsumeServiceComponent } from '@components/consume-service/consume-ser
     ContentComponent,
     HostElementsComponent,
     LifeCycleComponent,
-    ConsumeServiceComponent,
   ],
   template: `
     <!-- <router-outlet></router-outlet>  -->
@@ -99,8 +94,8 @@ import { ConsumeServiceComponent } from '@components/consume-service/consume-ser
     -->
 
     <h1>Curso de Angular</h1>
-    <app-consume-service />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent {
+}

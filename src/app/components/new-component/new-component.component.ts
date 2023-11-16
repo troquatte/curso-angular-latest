@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, delay, of } from 'rxjs';
-import { TasksService } from 'app/services/tasks.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-new-component',
@@ -10,15 +8,6 @@ import { TasksService } from 'app/services/tasks.service';
   templateUrl: './new-component.component.html',
   styleUrl: './new-component.component.scss',
 })
-export class NewComponent implements OnInit {
+export class NewComponent {
   public name = 'New Component';
-  constructor(private _tasksService: TasksService) {}
-
-  ngOnInit(): void {
-    console.log(this._tasksService.name());
-
-    this._tasksService.nameB$.subscribe({
-      next: (next) => console.log(next),
-    });
-  }
 }
