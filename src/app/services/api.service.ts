@@ -3,15 +3,23 @@ import { Injectable, inject, signal } from '@angular/core';
 import { environment } from 'environments/environment';
 
 // Rxjs
-import { BehaviorSubject, Observable, catchError, retry, shareReplay, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  retry,
+  shareReplay,
+  throwError,
+} from 'rxjs';
 
 // Interface
 interface ITask {
-  id: string, title: string
+  id: string;
+  title: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   // Novo
@@ -22,58 +30,80 @@ export class ApiService {
 
   // Consimundo BackEnd com Http
   #http = inject(HttpClient);
-  #url = signal(environment.apiTasks)
+  #url = signal(environment.apiTasks);
 
-  constructor() { }
+  constructor() {}
 
-  public getListTasksError = signal<null | string>(null)
+  public getListTasksError = signal<null | string>(null);
   public getListTasks$(): Observable<Array<ITask>> {
     this.getListTasksError.set(null);
     return this.#http.get<Array<ITask>>(this.#url()).pipe(
       shareReplay(),
       retry({ count: 2, delay: 1000 }),
-      catchError( (error: HttpErrorResponse) => this.#handleError(error, 'getListTasksError'))
-    )
+      catchError((error: HttpErrorResponse) =>
+        this.#handleError(error, 'getListTasksError')
+      )
+    );
   }
 
-  public getTaskError = signal<null | string>(null)
+  public getTaskError = signal<null | string>(null);
   public getTask$(id: string): Observable<ITask> {
     this.getTaskError.set(null);
     return this.#http.get<ITask>(`${this.#url()}/${id}`).pipe(
       shareReplay(),
       retry({ count: 2, delay: 1000 }),
-      catchError( (error: HttpErrorResponse) => this.#handleError(error, 'getTaskError'))
-    )
+      catchError((error: HttpErrorResponse) =>
+        this.#handleError(error, 'getTaskError')
+      )
+    );
   }
 
-  public createTaskError = signal<null | string>(null)
-  public createTask$(title: string): Observable<ITask>{
+  public createTaskError = signal<null | string>(null);
+  public createTask$(title: string): Observable<ITask> {
     return this.#http.post<ITask>(this.#url(), { title }).pipe(
       shareReplay(),
       retry({ count: 2, delay: 1000 }),
-      catchError( (error: HttpErrorResponse) => this.#handleError(error, 'createTaskError'))
-    )
+      catchError((error: HttpErrorResponse) =>
+        this.#handleError(error, 'createTaskError')
+      )
+    );
+  }
+
+  public updateTaskError = signal<null | string>(null);
+  public updateTask$(id: string, title: string): Observable<ITask> {
+    return this.#http
+      .patch<ITask>(`${this.#url()}/${id ? id : undefined}`, { title })
+      .pipe(
+        shareReplay(),
+        retry({ count: 2, delay: 1000 }),
+        catchError((error: HttpErrorResponse) =>
+          this.#handleError(error, 'updateTaskError')
+        )
+      );
   }
 
   // Error Validator ----------------------
-  #handleError(error: HttpErrorResponse, errorType: string){
+  #handleError(error: HttpErrorResponse, errorType: string) {
     const errorMessage = error.error.message;
 
     switch (errorType) {
       case 'getListTasksError':
-        this.getListTasksError.set(errorMessage)
-      break;
+        this.getListTasksError.set(errorMessage);
+        break;
 
       case 'getTaskError':
-        this.getTaskError.set(errorMessage)
-      break;
+        this.getTaskError.set(errorMessage);
+        break;
 
       case 'createTaskError':
-        this.createTaskError.set(errorMessage)
-      break;
+        this.createTaskError.set(errorMessage);
+        break;
 
+      case 'updateTaskError':
+        this.updateTaskError.set(errorMessage);
+        break;
     }
 
-    return throwError( () => errorMessage)
+    return throwError(() => errorMessage);
   }
 }
