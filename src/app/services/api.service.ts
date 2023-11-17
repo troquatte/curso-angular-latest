@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from 'environments/environment';
 
@@ -37,7 +41,10 @@ export class ApiService {
   public getListTasksError = signal<null | string>(null);
   public getListTasks$(): Observable<Array<ITask>> {
     this.getListTasksError.set(null);
-    return this.#http.get<Array<ITask>>(this.#url()).pipe(
+
+    const headers = new HttpHeaders().set('x-vida-full-stack', 'dev');
+
+    return this.#http.get<Array<ITask>>(this.#url(), { headers }).pipe(
       shareReplay(),
       retry({ count: 2, delay: 1000 }),
       catchError((error: HttpErrorResponse) =>
@@ -60,7 +67,9 @@ export class ApiService {
 
   public createTaskError = signal<null | string>(null);
   public createTask$(title: string): Observable<ITask> {
-    return this.#http.post<ITask>(this.#url(), { title }).pipe(
+    const headers = new HttpHeaders().set('x-vida-full-stack', 'dev');
+
+    return this.#http.post<ITask>(this.#url(), { title }, { headers }).pipe(
       shareReplay(),
       retry({ count: 2, delay: 1000 }),
       catchError((error: HttpErrorResponse) =>
@@ -78,6 +87,20 @@ export class ApiService {
         retry({ count: 2, delay: 1000 }),
         catchError((error: HttpErrorResponse) =>
           this.#handleError(error, 'updateTaskError')
+        )
+      );
+  }
+
+  public deleteTaskError = signal<null | string>(null);
+  public deleteTask$(id: string): Observable<void> {
+    this.getTaskError.set('Não foi possível carregar esse dado!');
+    return this.#http
+      .delete<void>(`${this.#url()}/${id ? id : undefined}`)
+      .pipe(
+        shareReplay(),
+        retry({ count: 2, delay: 1000 }),
+        catchError((error: HttpErrorResponse) =>
+          this.#handleError(error, 'deleteTaskError')
         )
       );
   }
@@ -101,6 +124,10 @@ export class ApiService {
 
       case 'updateTaskError':
         this.updateTaskError.set(errorMessage);
+        break;
+
+      case 'deleteTaskError':
+        this.deleteTaskError.set(errorMessage);
         break;
     }
 

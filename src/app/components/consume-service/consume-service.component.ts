@@ -25,10 +25,11 @@ export class ConsumeServiceComponent implements OnInit {
   public getListTasks$ = this.#apiService.getListTasks$();
 
   public getTaskError = this.#apiService.getTaskError;
-  public getTask$ = this.#apiService.getTask$('2PHbavJdUWIEGV0gdzrD');
+  public getTask$ = this.#apiService.getTask$('s6YldeMCT8QXDyVaURXv');
 
   public createTaskError = this.#apiService.createTaskError;
   public updateTaskError = this.#apiService.updateTaskError;
+  public deleteTaskError = this.#apiService.deleteTaskError;
 
   ngOnInit(): void {
     this.getListTasks$.subscribe({
@@ -63,6 +64,22 @@ export class ConsumeServiceComponent implements OnInit {
         concatMap((res) => {
           this.getListTasks$ = this.#apiService.getListTasks$();
           this.getTask$ = this.#apiService.getTask$(res.id);
+          return of(null);
+        })
+      )
+      .subscribe({
+        next: (next) => this.isLoading.set(true),
+        error: (error) => this.isLoading.set(true),
+      });
+  }
+
+  public deleteTask(id: string) {
+    this.isLoading.set(false);
+    this.#apiService
+      .deleteTask$(id)
+      .pipe(
+        concatMap((res) => {
+          this.getListTasks$ = this.#apiService.getListTasks$();
           return of(null);
         })
       )
