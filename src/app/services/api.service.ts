@@ -1,20 +1,9 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { environment } from 'environments/environment';
 
 // Rxjs
-import {
-  BehaviorSubject,
-  Observable,
-  catchError,
-  retry,
-  shareReplay,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 
 // Interface
 interface ITask {
@@ -41,41 +30,36 @@ export class ApiService {
   public getListTasksError = signal<null | string>(null);
   public getListTasks$(): Observable<Array<ITask>> {
     this.getListTasksError.set(null);
-
-    const headers = new HttpHeaders().set('x-vida-full-stack', 'dev');
-
-    return this.#http.get<Array<ITask>>(this.#url(), { headers }).pipe(
-      shareReplay(),
-      retry({ count: 2, delay: 1000 }),
-      catchError((error: HttpErrorResponse) =>
-        this.#handleError(error, 'getListTasksError')
-      )
-    );
+    return this.#http
+      .get<Array<ITask>>(this.#url())
+      .pipe(
+        catchError((error: HttpErrorResponse) =>
+          this.#handleError(error, 'getListTasksError')
+        )
+      );
   }
 
   public getTaskError = signal<null | string>(null);
   public getTask$(id: string): Observable<ITask> {
     this.getTaskError.set(null);
-    return this.#http.get<ITask>(`${this.#url()}/${id}`).pipe(
-      shareReplay(),
-      retry({ count: 2, delay: 1000 }),
-      catchError((error: HttpErrorResponse) =>
-        this.#handleError(error, 'getTaskError')
-      )
-    );
+    return this.#http
+      .get<ITask>(`${this.#url()}/${id}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) =>
+          this.#handleError(error, 'getTaskError')
+        )
+      );
   }
 
   public createTaskError = signal<null | string>(null);
   public createTask$(title: string): Observable<ITask> {
-    const headers = new HttpHeaders().set('x-vida-full-stack', 'dev');
-
-    return this.#http.post<ITask>(this.#url(), { title }, { headers }).pipe(
-      shareReplay(),
-      retry({ count: 2, delay: 1000 }),
-      catchError((error: HttpErrorResponse) =>
-        this.#handleError(error, 'createTaskError')
-      )
-    );
+    return this.#http
+      .post<ITask>(this.#url(), { title })
+      .pipe(
+        catchError((error: HttpErrorResponse) =>
+          this.#handleError(error, 'createTaskError')
+        )
+      );
   }
 
   public updateTaskError = signal<null | string>(null);
@@ -83,8 +67,6 @@ export class ApiService {
     return this.#http
       .patch<ITask>(`${this.#url()}/${id ? id : undefined}`, { title })
       .pipe(
-        shareReplay(),
-        retry({ count: 2, delay: 1000 }),
         catchError((error: HttpErrorResponse) =>
           this.#handleError(error, 'updateTaskError')
         )
@@ -97,8 +79,6 @@ export class ApiService {
     return this.#http
       .delete<void>(`${this.#url()}/${id ? id : undefined}`)
       .pipe(
-        shareReplay(),
-        retry({ count: 2, delay: 1000 }),
         catchError((error: HttpErrorResponse) =>
           this.#handleError(error, 'deleteTaskError')
         )
