@@ -22,11 +22,18 @@ export class ConsumeServiceComponent implements OnInit {
   #apiService = inject(ApiService);
 
   public getTaskList = this.#apiService.getTaskList;
+
   public getTaskId = this.#apiService.getTaskId;
+
+  public getTaskListError = this.#apiService.getTaskListError;
+  public getTaskIdError = this.#apiService.getTaskIdError;
+  public getTaskCreateError = this.#apiService.getTaskCreateError;
+  public getTaskUpdateError = this.#apiService.getTaskUpdateError;
+  public getTaskDeleteError = this.#apiService.getTaskDeleteError;
 
   ngOnInit(): void {
     this.#apiService.httpTaskList$().subscribe();
-    this.#apiService.httpTaskId$('xmmppv1sO2yZBdMYqNcn').subscribe();
+    this.#apiService.httpTaskId$('EwrhBJPLYHTAACz4AeWI').subscribe();
   }
 
   public httpTaskCreate(title: string) {

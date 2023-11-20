@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 // Env
 
@@ -40,9 +40,10 @@ import { TemplateVariablesComponent } from '@components/template/template-variab
     HostElementsComponent,
     LifeCycleComponent,
     ConsumeServiceComponent,
+    RouterModule,
   ],
   template: `
-    <!-- <router-outlet></router-outlet>  -->
+    <!-- <router-outlet></router-outlet> -->
     <!-- <app-new-component /> -->
     <!-- <app-template-binding /> -->
     <!-- <app-template-variables /> -->
