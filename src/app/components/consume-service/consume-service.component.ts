@@ -4,10 +4,11 @@ import {
   Component,
   OnInit,
   inject,
-  signal,
 } from '@angular/core';
+
+// Service
 import { ApiService } from 'app/services/api.service';
-import { concatMap, of } from 'rxjs';
+import { concatMap } from 'rxjs';
 
 @Component({
   selector: 'app-consume-service',
@@ -20,72 +21,32 @@ import { concatMap, of } from 'rxjs';
 export class ConsumeServiceComponent implements OnInit {
   #apiService = inject(ApiService);
 
-  public isLoading = signal(true);
-  public getListTasksError = this.#apiService.getListTasksError;
-  public getListTasks$ = this.#apiService.getListTasks$();
-
-  public getTaskError = this.#apiService.getTaskError;
-  public getTask$ = this.#apiService.getTask$('s6YldeMCT8QXDyVaURXv');
-
-  public createTaskError = this.#apiService.createTaskError;
-  public updateTaskError = this.#apiService.updateTaskError;
-  public deleteTaskError = this.#apiService.deleteTaskError;
+  public getTaskList = this.#apiService.getTaskList;
+  public getTaskId = this.#apiService.getTaskId;
 
   ngOnInit(): void {
-    this.getListTasks$.subscribe({
-      next: (next) => console.log(next),
-      error: (error) => console.log(error),
-      complete: () => console.log('complete'),
-    });
+    this.#apiService.httpTaskList$().subscribe();
+    this.#apiService.httpTaskId$('xmmppv1sO2yZBdMYqNcn').subscribe();
   }
 
-  public createTask(title: string) {
-    this.isLoading.set(false);
-    this.#apiService
-      .createTask$(title)
-      .pipe(
-        concatMap((res) => {
-          this.getListTasks$ = this.#apiService.getListTasks$();
-          this.getTask$ = this.#apiService.getTask$(res.id);
-          return of(null);
-        })
-      )
-      .subscribe({
-        next: (next) => this.isLoading.set(true),
-        error: (error) => this.isLoading.set(true),
-      });
+  public httpTaskCreate(title: string) {
+    return this.#apiService
+      .httpTaskCreate$(title)
+      .pipe(concatMap(() => this.#apiService.httpTaskList$()))
+      .subscribe();
   }
 
-  public updateTask(id: string, title: string) {
-    this.isLoading.set(false);
-    this.#apiService
-      .updateTask$(id, title)
-      .pipe(
-        concatMap((res) => {
-          this.getListTasks$ = this.#apiService.getListTasks$();
-          this.getTask$ = this.#apiService.getTask$(res.id);
-          return of(null);
-        })
-      )
-      .subscribe({
-        next: (next) => this.isLoading.set(true),
-        error: (error) => this.isLoading.set(true),
-      });
+  public httpTaskUpdate(id: string, title: string) {
+    return this.#apiService
+      .httpTaskUpdate$(id, title)
+      .pipe(concatMap(() => this.#apiService.httpTaskList$()))
+      .subscribe();
   }
 
-  public deleteTask(id: string) {
-    this.isLoading.set(false);
-    this.#apiService
-      .deleteTask$(id)
-      .pipe(
-        concatMap((res) => {
-          this.getListTasks$ = this.#apiService.getListTasks$();
-          return of(null);
-        })
-      )
-      .subscribe({
-        next: (next) => this.isLoading.set(true),
-        error: (error) => this.isLoading.set(true),
-      });
+  public httpTaskDelete(id: string) {
+    return this.#apiService
+      .httpTaskDelete$(id)
+      .pipe(concatMap(() => this.#apiService.httpTaskList$()))
+      .subscribe();
   }
 }

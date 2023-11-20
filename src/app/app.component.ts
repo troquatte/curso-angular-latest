@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 // Env
@@ -42,7 +39,7 @@ import { TemplateVariablesComponent } from '@components/template/template-variab
     ContentComponent,
     HostElementsComponent,
     LifeCycleComponent,
-    ConsumeServiceComponent
+    ConsumeServiceComponent,
   ],
   template: `
     <!-- <router-outlet></router-outlet>  -->
@@ -100,6 +97,4 @@ import { TemplateVariablesComponent } from '@components/template/template-variab
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent  {
-
-}
+export class AppComponent {}

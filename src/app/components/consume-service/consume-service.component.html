@@ -1,48 +1,31 @@
 <h2>Services</h2>
+
 <h3>Get List</h3>
-@if(isLoading() && (getListTasks$ | async); as data){
+@if(getTaskList(); as data){
   <ul>
-  @for(item of data; track item){
-    <li>{{ item.id }} - {{ item.title }} - <button (click)="deleteTask(item.id)">Deletar</button></li>
-  }
+    @for(item of data; track item){
+      <li>{{ item.id }} - {{ item.title }} - <button (click)="httpTaskDelete(item.id)"> delete </button></li>
+    } @empty {
+      <li>Sem dados carregados!</li>
+    }
   </ul>
-}@else {
-  @if(getListTasksError() === null){
-    <p>Loading...</p>
-  }@else {
-    {{ getListTasksError() }}
-  }
-}
-
-@if(deleteTaskError()){
-  <p>{{ deleteTaskError() }}</p>
+} @else {
+  <li>Loading...</li>
 }
 
 
-<h3>Get Id</h3>
-@if(!getTaskError() && isLoading() && (getTask$ | async); as data){
-  {{ data.id }} - {{ data.title }}
-}@else {
-  @if(getTaskError() === null){
-    <p>Loading...</p>
-  }@else {
-    {{ getTaskError() }}
-  }
+<h3>Get item Id</h3>
+@if(getTaskId(); as data){
+ <p>Get por ID: {{ data.id }} - {{ data.title }}</p>
 }
 
-<h3>Create Task</h3>
-<input type="text" #createTitle placeholder="add title">
-<button (click)="createTask(createTitle.value)"> Create </button>
+<h3>Post create</h3>
+<input type="text" #createTitle placeholder="Add title">
+<button (click)="httpTaskCreate(createTitle.value)"> Create </button>
 
-@if(createTaskError()){
-  <p>{{ createTaskError() }}</p>
-}
+<h3>Patch Update</h3>
+<input type="text" #updateId placeholder="Add id">
+<input type="text" #updateTitle placeholder="Add title">
+<button (click)="httpTaskUpdate(updateId.value, updateTitle.value)"> Update </button>
 
-<h3>Update Task</h3>
-<input type="text" #id placeholder="add id">
-<input type="text" #updateTitle placeholder="add title">
-<button (click)="updateTask(id.value, updateTitle.value)"> Update </button>
 
-@if(updateTaskError()){
-  <p>{{ updateTaskError() }}</p>
-}
