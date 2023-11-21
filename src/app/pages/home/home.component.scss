@@ -1,3 +1,6 @@
 :host {
-  display: block;
+  .active{
+    background: purple;
+    color: #FFF;
+  }
 }

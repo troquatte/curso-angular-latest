@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-sobre',
+  selector: 'app-not-found',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './sobre.component.html',
-  styleUrl: './sobre.component.scss',
+  templateUrl: './not-found.component.html',
+  styleUrl: './not-found.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class SobreComponent {}
+export default class NotFoundComponent {}
