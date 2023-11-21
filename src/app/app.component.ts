@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 // Env
 
@@ -40,7 +40,6 @@ import { TemplateVariablesComponent } from '@components/template/template-variab
     HostElementsComponent,
     LifeCycleComponent,
     ConsumeServiceComponent,
-    RouterModule,
   ],
   template: `
     <!-- <router-outlet></router-outlet> -->
@@ -92,9 +91,11 @@ import { TemplateVariablesComponent } from '@components/template/template-variab
 
       <button (click)="boolean = !boolean">Destroy Component</button>
     -->
+    <!-- <app-consume-service /> -->
 
     <h1>Curso de Angular</h1>
-    <app-consume-service />
+    <h2>Rotas</h2>
+    <router-outlet></router-outlet>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
