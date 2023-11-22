@@ -16,6 +16,9 @@ registerLocaleData(localePt);
 // Interceptor
 import { httpInterceptor } from './interceptor/http.interceptor';
 
+// Translate
+import { provideTranslate } from './app.translate';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
@@ -26,6 +29,7 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideHttpClient(withInterceptors([httpInterceptor])),
+    provideTranslate(),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
 };

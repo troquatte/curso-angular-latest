@@ -19,6 +19,7 @@ import { TemplateBindingComponent } from '@components/template/template-binding/
 import { TemplateControlFlowComponent } from '@components/template/template-control-flow/template-control-flow.component';
 import { TemplateDeferrableViewsComponent } from '@components/template/template-deferrable-views/template-deferrable-views.component';
 import { TemplateVariablesComponent } from '@components/template/template-variables/template-variables.component';
+import { TranslateComponent } from '@components/translate/translate.component';
 
 @Component({
   selector: 'app-root',
@@ -40,6 +41,7 @@ import { TemplateVariablesComponent } from '@components/template/template-variab
     HostElementsComponent,
     LifeCycleComponent,
     ConsumeServiceComponent,
+    TranslateComponent,
   ],
   template: `
     <!-- <router-outlet></router-outlet> -->
@@ -94,6 +96,7 @@ import { TemplateVariablesComponent } from '@components/template/template-variab
     <!-- <app-consume-service /> -->
 
     <h1>Curso de Angular</h1>
+    <app-translate />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
