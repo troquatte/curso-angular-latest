@@ -7,12 +7,18 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-servicos-prestados',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './servicos-prestados.component.html',
   styleUrl: './servicos-prestados.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,6 +31,10 @@ export default class ServicosPrestadosComponent implements OnInit {
   @Input() set id(id: string) {
     this.getId.set(id);
   }
+
+  public form = new FormGroup({
+    name: new FormControl(null, [Validators.required]),
+  });
 
   ngOnInit(): void {
     console.log(this.#route.snapshot.params['id']);
@@ -40,6 +50,6 @@ export default class ServicosPrestadosComponent implements OnInit {
       },
     });
 
-    setTimeout(() => this.#router.navigate(['/curso']), 3000);
+    // setTimeout(() => this.#router.navigate(['/curso']), 3000);
   }
 }

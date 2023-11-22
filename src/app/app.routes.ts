@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-
-// Components
+import { canMatchGuard } from './guard/can-match.guard';
 
 export const routes: Routes = [
   {
     path: 'curso',
     loadChildren: () =>
       import('./pages/curso.routes').then((r) => r.cursoRoutes),
+    canMatch: [canMatchGuard],
   },
   {
     path: '**',

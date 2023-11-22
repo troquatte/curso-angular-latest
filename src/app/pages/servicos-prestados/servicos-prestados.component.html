@@ -1,2 +1,15 @@
 <p>servicos-prestados works!</p>
 {{ getId() }}
+
+
+<h3>Form</h3>
+<form [formGroup]="form">
+  <label>
+    Name:
+    <input type="text" formControlName="name">
+  </label>
+</form>
+
+
+<a [routerLink]="['/curso']"> Voltar </a>
+
