@@ -94,8 +94,6 @@ import { TemplateVariablesComponent } from '@components/template/template-variab
     <!-- <app-consume-service /> -->
 
     <h1>Curso de Angular</h1>
-    <h2>Rotas</h2>
-    <router-outlet></router-outlet>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
