@@ -13,6 +13,7 @@ import { TemplateDrivenFormsComponent } from '@components/forms/template-driven-
 import { HostElementsComponent } from '@components/host-elements/host-elements.component';
 import { LifeCycleComponent } from '@components/life-cycle/life-cycle.component';
 import { NewComponent } from '@components/new-component/new-component.component';
+import { OptImageComponent } from '@components/opt-image/opt-image.component';
 import { AngularPipesComponent } from '@components/pipes/angular-pipes/angular-pipes.component';
 import { SignalsComponent } from '@components/signals/signals.component';
 import { TemplateBindingComponent } from '@components/template/template-binding/template-binding.component';
@@ -42,6 +43,7 @@ import { TranslateComponent } from '@components/translate/translate.component';
     LifeCycleComponent,
     ConsumeServiceComponent,
     TranslateComponent,
+    OptImageComponent,
   ],
   template: `
     <!-- <router-outlet></router-outlet> -->
@@ -94,9 +96,10 @@ import { TranslateComponent } from '@components/translate/translate.component';
       <button (click)="boolean = !boolean">Destroy Component</button>
     -->
     <!-- <app-consume-service /> -->
+    <!-- <app-translate /> -->
+    <!-- <app-opt-image /> -->
 
     <h1>Curso de Angular</h1>
-    <app-translate />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

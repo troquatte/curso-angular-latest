@@ -1,4 +1,5 @@
 import { ApplicationConfig, LOCALE_ID } from '@angular/core';
+import { environment } from 'environments/environment';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
@@ -9,7 +10,6 @@ import {
 
 import { routes } from './app.routes';
 
-import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 registerLocaleData(localePt);
 
@@ -18,6 +18,9 @@ import { httpInterceptor } from './interceptor/http.interceptor';
 
 // Translate
 import { provideTranslate } from './app.translate';
+
+// Img
+import { provideImgixLoader, registerLocaleData } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,6 +33,25 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withInterceptors([httpInterceptor])),
     provideTranslate(),
+    provideImgixLoader(environment.img),
+    // {
+    //   provide: IMAGE_LOADER,
+    //   useValue: (config: ImageLoaderConfig) => {
+    //     const img = config.src.split('.');
+    //     const name = img.shift();
+    //     const type = img.pop();
+    //     const width = config.width;
+    //     return `${environment.img}${name}${
+    //       width ? '-' + width + 'w' : ''
+    //     }.${type}`;
+    //   },
+    // },
+    provideAnimationsAsync(),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
 };
+function provideAnimationsAsync():
+  | import('@angular/core').Provider
+  | import('@angular/core').EnvironmentProviders {
+  throw new Error('Function not implemented.');
+}
