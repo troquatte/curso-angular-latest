@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AnimationsComponent } from '@components/animations/animations.component';
 
 // Env
 
@@ -44,6 +45,7 @@ import { TranslateComponent } from '@components/translate/translate.component';
     ConsumeServiceComponent,
     TranslateComponent,
     OptImageComponent,
+    AnimationsComponent,
   ],
   template: `
     <!-- <router-outlet></router-outlet> -->
@@ -100,6 +102,7 @@ import { TranslateComponent } from '@components/translate/translate.component';
     <!-- <app-opt-image /> -->
 
     <h1>Curso de Angular</h1>
+    <app-animations />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

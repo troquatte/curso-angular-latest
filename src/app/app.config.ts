@@ -1,4 +1,5 @@
 import { ApplicationConfig, LOCALE_ID } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { environment } from 'environments/environment';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -21,6 +22,8 @@ import { provideTranslate } from './app.translate';
 
 // Img
 import { provideImgixLoader, registerLocaleData } from '@angular/common';
+
+// Animate
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -50,8 +53,3 @@ export const appConfig: ApplicationConfig = {
     { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
 };
-function provideAnimationsAsync():
-  | import('@angular/core').Provider
-  | import('@angular/core').EnvironmentProviders {
-  throw new Error('Function not implemented.');
-}
