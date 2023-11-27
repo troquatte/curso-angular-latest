@@ -73,7 +73,7 @@ import { listItensAnimation } from 'app/animations/list-itens.animation';
       transition('* => move-right', animate('5s 1s ease-in-out')),
       transition('* => move-left', animate('1s')),
     ]),
-    listItensAnimation,
+    listItensAnimation(),
   ],
 })
 export class AnimationsComponent {
