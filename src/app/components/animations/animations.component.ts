@@ -1,8 +1,6 @@
 import {
   animate,
   keyframes,
-  query,
-  stagger,
   state,
   style,
   transition,
@@ -10,6 +8,7 @@ import {
 } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { listItensAnimation } from 'app/animations/list-itens.animation';
 
 @Component({
   selector: 'app-animations',
@@ -74,73 +73,30 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
       transition('* => move-right', animate('5s 1s ease-in-out')),
       transition('* => move-left', animate('1s')),
     ]),
-    trigger('list-itens', [
-      transition(':enter', [
-        query('li', [
-          style({
-            background: 'yellow',
-            transform: 'translateY(100px)',
-          }),
-          stagger('700ms', [animate('1s')]),
-          // group([
-          //   animate(
-          //     '1s',
-          //     style({
-          //       background: 'red',
-          //     })
-          //   ),
-          //   animate(
-          //     '2s',
-          //     style({
-          //       background: 'blue',
-          //     })
-          //   ),
-          //   animate(
-          //     '7s',
-          //     style({
-          //       background: 'none',
-          //       transform: 'translateY(0)',
-          //     })
-          //   ),
-          //   animate(
-          //     '1s',
-          //     style({
-          //       transform: 'translateY(100px)',
-          //     })
-          //   ),
-          // ]),
-          // sequence([
-          //   animate(
-          //     '1s',
-          //     style({
-          //       background: 'red',
-          //     })
-          //   ),
-          //   animate(
-          //     '2s',
-          //     style({
-          //       background: 'blue',
-          //     })
-          //   ),
-          //   animate(
-          //     '7s',
-          //     style({
-          //       background: 'none',
-          //       transform: 'translateY(0)',
-          //     })
-          //   ),
-          //   animate(
-          //     '1s',
-          //     style({
-          //       transform: 'translateY(100px)',
-          //     })
-          //   ),
-          // ]),
-        ]),
-      ]),
-    ]),
+    listItensAnimation,
   ],
 })
 export class AnimationsComponent {
   public moveIn = signal('');
+  public listItens = signal([
+    {
+      name: 'Item 1',
+    },
+    {
+      name: 'Item 2',
+    },
+    {
+      name: 'Item 3',
+    },
+    {
+      name: 'Item 4',
+    },
+    {
+      name: 'Item 5',
+    },
+  ]);
+
+  public deleteItem(index: number) {
+    this.listItens().splice(index, 1);
+  }
 }
