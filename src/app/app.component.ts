@@ -1,6 +1,14 @@
+import {
+  animate,
+  group,
+  query,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { AnimationsComponent } from '@components/animations/animations.component';
 
 // Env
@@ -46,6 +54,7 @@ import { TranslateComponent } from '@components/translate/translate.component';
     TranslateComponent,
     OptImageComponent,
     AnimationsComponent,
+    RouterLink,
   ],
   template: `
     <!-- <router-outlet></router-outlet> -->
@@ -100,10 +109,43 @@ import { TranslateComponent } from '@components/translate/translate.component';
     <!-- <app-consume-service /> -->
     <!-- <app-translate /> -->
     <!-- <app-opt-image /> -->
+    <!-- <app-animations /> -->
 
     <h1>Curso de Angular</h1>
-    <app-animations />
+    <nav>
+      <ul>
+        <li><a [routerLink]="['']">Home</a></li>
+        <li><a [routerLink]="['/sobre']">Sobre</a></li>
+      </ul>
+    </nav>
+
+    <router-outlet></router-outlet>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('routeAnimations', [
+      transition('* => *', [
+        group([
+          query(
+            ':enter',
+            [
+              style({
+                opacity: 0,
+              }),
+              group([
+                animate(
+                  '1s',
+                  style({
+                    opacity: 1,
+                  })
+                ),
+              ]),
+            ],
+            { optional: true }
+          ),
+        ]),
+      ]),
+    ]),
+  ],
 })
 export class AppComponent {}

@@ -13,6 +13,8 @@ move in: {{ moveIn() }}
 
 <hr />
 
+<button (click)="addNewItem()">Add</button>
+
 <ul [@list-itens]="listItens().length">
   @for(item of listItens(); track item; let i = $index){
     <li>{{ item.name }} - <button (click)="deleteItem(i)">delete</button></li>

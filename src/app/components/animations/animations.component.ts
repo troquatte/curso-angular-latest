@@ -97,6 +97,13 @@ export class AnimationsComponent {
   ]);
 
   public deleteItem(index: number) {
-    this.listItens().splice(index, 1);
+    return this.listItens().splice(index, 1);
+  }
+
+  public addNewItem() {
+    return this.listItens.update((oldValue) => [
+      ...oldValue,
+      { name: 'Novo Nome' },
+    ]);
   }
 }
